@@ -1,0 +1,21 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+ml_env/
+.venv/
+venv/
+env/
+
+# Logs and runtime artifacts
+*.log
+
+# TensorBoard artifacts
+logs/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
