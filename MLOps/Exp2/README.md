@@ -1,107 +1,95 @@
 # Experiment 2: Continuous Integration (CI) with GitHub Actions
 
-## Objective
-Learn how to set up Continuous Integration using GitHub Actions to automatically run tests on code push.
+## Aim
+To implement Continuous Integration for a Python project using GitHub Actions so that tests run automatically on every code change.
 
-## Prerequisites
-- Python 3.x installed
-- Git installed
-- GitHub account
-- Basic understanding of pytest
+## Objective
+- Write simple Python functions.
+- Write unit tests using `pytest`.
+- Configure GitHub Actions to run tests on:
+  - push to `main`
+  - pull request to `main`
 
 ## Project Structure
-```
+```text
 Exp2/
-├── app.py          # Main application file
-├── test_app.py     # Test file for CI
-├── requirements.txt # Python dependencies
-└── README.md       # This file
+|-- app.py
+|-- test_app.py
+|-- requirements.txt
+|-- README.md
+`-- .github/
+    `-- workflows/
+        `-- ci.yml
 ```
 
-## How to Set Up CI
+## Files Overview
+- `app.py`: Contains simple functions (`add_numbers`, `is_even`).
+- `test_app.py`: Unit tests for these functions.
+- `requirements.txt`: Dependency list for CI and local testing.
+- `.github/workflows/ci.yml`: GitHub Actions workflow file.
 
-### Step 1: Create a GitHub Repository
-1. Go to [GitHub](https://github.com) and create a new repository
-2. Clone the repository to your local machine:
-   ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   ```
+## Prerequisites
+- Python 3.10+
+- Git
+- GitHub account
+- VS Code (recommended)
 
-### Step 2: Add Project Files
-Copy the following files to your repository:
-- `app.py`
-- `test_app.py`
-- `requirements.txt`
+## Local Setup (Windows PowerShell)
 
-### Step 3: Create GitHub Actions Workflow
-1. Create a `.github/workflows` directory in your repository
-2. Create a file named `ci.yml` inside it:
+### 1. Open project folder in VS Code
+Open the `Exp2` folder.
 
-```yaml
-name: CI Pipeline
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    
-    - name: Run tests
-      run: |
-        pytest -v test_app.py
+### 2. Create and activate virtual environment
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
 ```
 
-### Step 4: Push to GitHub
-```bash
-git add .
-git commit -m "Add CI pipeline"
-git push origin main
-```
-
-### Step 5: Verify CI Pipeline
-1. Go to your GitHub repository
-2. Click on the "Actions" tab
-3. You should see your workflow running
-4. Green checkmark ✅ = All tests passed
-5. Red X ❌ = Tests failed
-
-## Running Tests Locally
-
-```bash
-# Install dependencies
+### 3. Install dependencies
+```powershell
 pip install -r requirements.txt
-
-# Run tests
-pytest -v test_app.py
 ```
 
-## Files Description
+### 4. Run tests locally
+```powershell
+pytest -v
+```
 
-| File | Description |
-|------|-------------|
-| `app.py` | Main application code |
-| `test_app.py` | Test cases using pytest |
-| `requirements.txt` | Lists pytest as dependency |
+Expected: all tests pass.
 
-## Key Concepts Learned
-- Setting up GitHub Actions for CI
-- Creating workflow YAML files
-- Automated testing on code push
-- Viewing CI/CD pipeline results on GitHub
+## GitHub Actions Workflow
+Workflow file: `.github/workflows/ci.yml`
+
+It performs the following steps:
+1. Checkout code
+2. Set up Python 3.11
+3. Install dependencies
+4. Run tests (`pytest -v`)
+
+## How to Push and Trigger CI
+Run these commands in `Exp2` folder:
+
+```powershell
+git init
+git add .
+git commit -m "Set up Exp2 CI with GitHub Actions"
+git branch -M main
+git remote add origin https://github.com/<your-username>/<your-repo-name>.git
+git push -u origin main
+```
+
+## How to Verify CI Run
+1. Open your GitHub repository.
+2. Click the **Actions** tab.
+3. Open workflow: **CI Pipeline**.
+4. Green status means CI passed successfully.
+
+## Viva Questions (Practice)
+1. What is Continuous Integration?
+2. Why do we use automated testing in CI?
+3. What triggers this GitHub Actions workflow?
+4. What happens if a test fails in CI?
+5. Difference between CI and CD?
+
+## Result
+Continuous Integration pipeline was successfully implemented using GitHub Actions, and tests run automatically for every push and pull request on `main`.
